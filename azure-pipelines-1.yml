@@ -1,0 +1,65 @@
+
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)-late
+
+    - script: |
+        echo "Listing Docker images on the agent:"
+        docker images
+      displayName: Show Created Docker Images
+
+- stage: Login
+  displayName: Docker Login
+  jobs:
+  - job: Login
+    displayName: Docker Login
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Docker Login
+      inputs:
+        containerRegistry: 'dockerhubksaty000connection'
+        command: 'login'
+
+- stage: Push
+  displayName: Push image
+  jobs:
+  - job: Push
+    displayName: Push
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Push an image
+      inputs:
+        containerRegistry: 'dockerhubksaty000connection'
+        repository: 'ksaty000/fullstacktesting'
+        command: 'push'
+        tags: '$(tag)'

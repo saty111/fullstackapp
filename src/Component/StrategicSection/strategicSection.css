@@ -1,0 +1,152 @@
+.strategicSection {
+    padding: 0 4rem;
+}
+
+.strategicInfo {
+    text-align: center;
+    line-height: 1.5;
+}
+.strategicInfo>h1{
+    color: var(--h1-color);
+    font-weight: 800;
+    font-size: 2.5rem;
+}
+.strategicInfo>p{
+    color: var(--links-color);
+    font-size: 1.2rem;
+}
+.strategicCards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 4rem;
+    padding: 4rem 0;
+}
+.innerCard:hover{
+    transform: translateY(-10px);
+    transition: 0.4s all ease;
+}
+
+.innerCard {
+    position: relative;
+    width: 50%;
+    background-color: #64748b30;
+    border-radius: 1.8rem ;
+    transition: 0.4s all ease;
+    overflow: hidden;
+}
+.innerCard:hover{
+    color: #fff;
+    box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.6);
+}
+.innerCard:hover .cardBackground {
+  left: 0%;
+  border-radius: 1.8rem;
+  transition: 0.5s all ease;
+}
+.stratLocation {
+    text-align: center;
+    position: relative;
+    padding: 3rem 5rem;
+    border-top-right-radius: 1.8rem;
+    border-top-left-radius: 1.8rem;
+    background-color: rgba(43, 121, 193, 0.534);
+
+
+}
+
+.locationLogo1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(src/assets/strategic1.jpg);
+    background-position: bottom;
+    background-size: cover;
+    /* This blurs the image */
+    z-index: -1;
+    border-top-right-radius: 1.8rem;
+    border-top-left-radius: 1.8rem;
+}
+.locationLogo2::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(src/assets/strategic2.jpg);
+    background-position: bottom;
+    background-size: cover;
+    /* This blurs the image */
+    z-index: -1;
+    border-top-right-radius: 1.8rem;
+    border-top-left-radius: 1.8rem;
+}
+
+.stratLocation>h1 {
+    color: #fff;
+    font-weight: 500;
+}
+.stratLocation>p{
+    color: #fff;
+}
+.locationInfo{
+    padding: 2rem 2rem;
+}
+.locationInfo>p{
+    line-height: 2;
+    font-size: 0.9rem;
+    padding-left: 2rem;
+}
+.locationInfo>ul{
+    padding: 1rem 0 0 2rem;
+    line-height: 1.6;
+}
+@media only screen and (max-width: 1128px) {
+  .strategicCards{
+    gap: 2rem;
+  }
+  .stratLocation{
+    padding: 3rem 2rem;
+  }
+  .strategicSection{
+    padding: 0 2rem;
+  }
+}
+@media only screen and (max-width: 850px) {
+  .stratLocation>h1{
+    font-size: 1.5rem;
+  }
+  .locationInfo>p{
+    font-size: 0.9rem;
+  }
+  .locationInfo{
+    padding:2rem 0;
+  }
+  .locationInfo>ul>li{
+    font-size: 0.9rem;
+  }
+}
+@media only screen and (max-width: 709px) {
+  .strategicCards{
+    flex-wrap: wrap;
+  }
+  .innerCard{
+    flex: 1 1 35rem;
+
+  }
+  .locationInfo{
+    padding: 2rem 2rem;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .strategicInfo>h1{
+    font-size: 1.8rem;
+  }
+  .strategicInfo>p{
+    font-size: 1rem;
+  }
+}
