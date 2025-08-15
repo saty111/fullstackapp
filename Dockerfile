@@ -1,49 +1,22 @@
-
-# FROM node:22-alpine AS installer
-
-# #RUN apt-get update && \
-# #    apt-get install -y --no-install-recommends curl tini &&\
-# #    rm -rf /var/lib/apt/lists/*
-
- 
-# WORKDIR /app
- 
-# COPY package*.json ./
- 
-# RUN npm install
- 
-# COPY . .
-
-# RUN npm run build
-
-# FROM nginx:latest AS developer
-
-# COPY --from=installer /app/ /usr/share/nginx/html
- 
-# EXPOSE 3000
- 
-# CMD ["npm", "run", "dev"]
-
-
 # Stage 1: Build the app
-FROM node:22-alpine AS installer
 
+FROM node:20-alpine AS build
 WORKDIR /app
 
+# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
 
+#Copy all files and build
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve with Nginx
-FROM nginx:latest AS developer
+#Stage 2: Serve the app
+FROM nginx:stable-alpine
+#Copy build output to nginx html folder
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy build output to Nginx's public folder
-COPY --from=installer /app/build /usr/share/nginx/html
-
-# Optional: Remove default Nginx config and add your own if needed
-# COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
